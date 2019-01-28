@@ -1,0 +1,20 @@
+String dn = null;
+		LDAPConnection ldapConnection = new LDAPConnection("192.168.0.17", 22389, "cn=Directory Manager", "dirmanager"); 
+		SearchResult sr= ldapConnection.search("cn=System Information,cn=monitor",SearchScope.SUB,"objectClass=*");
+		for(SearchResultEntry e : sr.getSearchEntries()) {
+			 String installPath = e.getAttributeValue("installPath");
+			System.out.println(installPath);
+		}
+		SearchResult result= ldapConnection.search("cn=config",SearchScope.SUB , "cn=File-Based *","ds-cfg-log-file" );
+		for(SearchResultEntry e: result.getSearchEntries()) {
+			dn = e.getDN();
+			String logPath = e.getAttributeValue("ds-cfg-log-file");
+			String[] a =dn.split(" ");
+			String logType = a[1];
+			
+			System.out.print("로그 종류 " + logType);	
+			System.out.print(" 로그위치:" + logPath);
+			System.out.println(" ");
+			
+		}
+	}
