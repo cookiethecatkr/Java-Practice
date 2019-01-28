@@ -1,0 +1,33 @@
+/*//String a[] = new String[4] ;
+		ArrayList<Integer> a = new ArrayList<Integer>();
+		//List<String> list =Arrays.asList(a);
+		a.add(1);
+		a.add(2);
+		a.add(3);
+		a.add(4);
+		//System.out.println(a.length);
+		Integer b[] = new Integer[a.size()];    //크기만큼 배열을 생성
+		b = a.toArray(b);                      // 리스트를 배열로 변환 후 대입
+		System.out.println(b);
+		for (Integer number:b) {
+		System.out.println("ㄱ" + number);*/
+		
+		
+		/*List<String> a = new ArrayList<String>();
+		a.add("1");
+		a.add("2");
+		a.add("2");
+		a.add("2");
+		String b[] = new String[a.size()];
+	         b =   a.toArray(b);
+	        String  [] b= a.toArray(new String[a.size()]);     //toArray 연습
+		for ( String c: b)
+		System.out.println(c);*/
+		
+		String[] a = {"!", "2", "3" ,"4"};
+       // List<String> b = new ArrayList<String>(); 
+		   List <String>b = Arrays.asList(a);                //asList 연습  
+		   System.out.println(b);
+	   /* List<String> c = new ArrayList<String>();
+          c = Arrays.asList(a);
+        System.out.println(c);  */
