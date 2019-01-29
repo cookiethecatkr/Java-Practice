@@ -1,0 +1,50 @@
+public class LDAP {
+	
+	
+	public LDAPConnection connect() throws LDAPException {
+	LDAPConnection ldapConnection = new LDAPConnection("192.168.0.17", 22389, "cn=Directory Manager", "dirmanager"); 
+	return ldapConnection;
+	}
+	
+	public String getInstallPath() throws LDAPException {
+		String installPath = null;
+		LDAPConnection ldapConnection = connect();
+		SearchResult sr= ldapConnection.search("cn=System Information,cn=monitor",SearchScope.SUB,"objectClass=*");
+		for(SearchResultEntry e : sr.getSearchEntries()) {
+			  installPath = e.getAttributeValue("installPath");   //설치경로
+			System.out.println("설치경로" + installPath);
+		}
+		ldapConnection.close();
+		return installPath;
+	}
+	
+	public String getLogPath() throws LDAPException {
+		String logPath = null;
+		LDAPConnection ldapConnection = connect();
+		SearchResult result= ldapConnection.search("cn=config",SearchScope.SUB , "cn=File-Based *" );
+		for(SearchResultEntry e: result.getSearchEntries()) {
+			String dn = e.getDN();   
+			String[] a =dn.split(" ");
+			String logType = a[1];
+			String logFile = e.getAttributeValue("ds-cfg-log-file");
+			String[] b = logFile.split("/");
+		    logPath = b[0];
+			Boolean enabled = e.getAttributeValueAsBoolean("ds-cfg-enabled");
+			if ( enabled) {
+				System.out.print("로그 종류 " + logType);	
+				System.out.print(" 로그위치:" + logPath);
+				System.out.println(" ");
+			}  else {
+				System.out.println("oh no");
+			}
+		}
+		ldapConnection.close();
+		return logPath;
+	}
+	
+	public static void main(String[] args) throws LDAPException {
+		LDAP ldap = new LDAP();
+		ldap.getInstallPath();
+		ldap.getLogPath();
+	}
+}
