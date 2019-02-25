@@ -31,4 +31,7 @@
 	   /* List<String> c = new ArrayList<String>();
           c = Arrays.asList(a);
         System.out.println(c);  */
-1
+
+ArrayList method , get() 
+
+// ex) System.out.println(b.get(1));  
